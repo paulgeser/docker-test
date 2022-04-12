@@ -14,8 +14,15 @@ jobs:
 
     steps:
       -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: paulgeser/docker-test:latest
+          tags: paulgeser/docker-test:latest,paulgeser/docker-test:1.0.0
